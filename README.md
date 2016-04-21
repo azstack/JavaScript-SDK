@@ -2,7 +2,7 @@
 
 Download JavaScript SDK and example at: https://developers.azstack.co/SDK/javascript
 
-Please review example (authentication, chat) here: https://github.com/azstack/JavaScript-SDK/blob/master/Example/example_1.html
+Please review example (authentication, chat):
 
 
 ```javascript

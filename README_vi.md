@@ -1,5 +1,7 @@
 # 1. Quick Start:
 
+Download JavaScript SDK và ví dụ tại: https://developers.azstack.co/SDK/javascript
+
 Xem ví dụ xác thực, gửi và nhận tin nhắn ở đây: https://github.com/azstack/JavaScript-SDK/blob/master/Example/example_1.html
 
 

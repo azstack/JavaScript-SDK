@@ -12,7 +12,8 @@ Please review example (authentication, chat):
 <!-- required libraries -->
 <script type="text/javascript" src="js/socket.io.js"></script>
 <script type="text/javascript" src="js/jsencrypt.js"></script>
-<script type="text/javascript" src="js/azstack_sdk-1.2-build-20160524.js"></script>
+<script type="text/javascript" src="js/adapter-1.3.0.js"></script>
+<script type="text/javascript" src="js/azstack_sdk-1.5-build-20160608.js"></script>
 
 <script type="text/javascript">
 	var currentMsgId = Math.floor(Date.now() / 1000);
@@ -21,15 +22,16 @@ Please review example (authentication, chat):
 		//init SDK
 		var azAppID = "26870527d2ac628002dda81be54217cf"; // you will get it after registered
 		var publicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq9s407QkMiZkXF0juCGjti6iWUDzqEmP+Urs3+g2zOf+rbIAZVZItS5a4BZlv3Dux3Xnmhrz240OZMBO1cNcpoEQNij1duZlpJY8BJiptlrj3C+K/PSp0ijllnckwvYYpApm3RxC8ITvpmY3IZTrRKloC/XoRe39p68ARtxXKKW5I/YYxFucY91b6AEOUNaqMFEdLzpO/Dgccaxoc+N1SMfZOKue7aH0ZQIksLN7OQGVoiuf9wR2iSz3+FA+mMzRIP+lDxI4JE42Vvn1sYmMCY1GkkWUSzdQsfgnAIvnbepM2E4/95yMdRPP/k2Qdq9ja/mwEMTfA0yPUZ7LiywoZwIDAQAB';
-		var azStackUserId = 'user2'; // userid defined in your system
-		var fullname = 'Dau Ngoc Huy'; // username goes with userid
+		var azStackUserId = 'user2';
+		var fullname = 'Dau Ngoc Huy';
 		var userCredentials = '274f011805dad952bf234f1cac990f18';
+                var namespace = '';
 		//log level
 		azstack.logLevel = 'INFO';
 
 		//SDK delegate --------------------------------------------- -->
-		azstack.onAuthenticationCompleted = function (code, authenticatedUser) {
-			azstack.log('INFO', 'onAuthenticationCompleted code ' + code + ', authenticatedUser: ');
+		azstack.onAuthenticationCompleted = function (code, authenticatedUser, msg) {
+			azstack.log('INFO', 'onAuthenticationCompleted code: ' + code + ', msg: ' + msg + ', authenticatedUser');
 			azstack.log('INFO', authenticatedUser);
 
 			$msgDiv.append('onAuthenticationCompleted code ' + code + ', authenticatedUser: ' + '<br />');
@@ -55,7 +57,7 @@ Please review example (authentication, chat):
 		//SDK delegate --------------------------------------------- <--
 
 		//start authentication
-		azstack.connect(azAppID, publicKey, azStackUserId, userCredentials, fullname);//connect AZStack server
+		azstack.connect(azAppID, publicKey, azStackUserId, userCredentials, fullname, namespace);//connect AZStack server
 	});
 </script>
 ```
@@ -85,15 +87,16 @@ Optional libraries:
 Sample code:
 ```javascript
 		<script type="text/javascript" src="js/socket.io.js"></script>
-		<script type="text/javascript" src="js/jsencrypt.js"></script>
-		<script type="text/javascript" src="js/azstack_sdk-1.2-build-20160524.js"></script>
+                <script type="text/javascript" src="js/jsencrypt.js"></script>
+		<script type="text/javascript" src="js/adapter-1.3.0.js"></script>
+                <script type="text/javascript" src="js/azstack_sdk-1.5-build-20160608.js"></script>
 ```
 # 4. Delegates
 
 Delegate functions is required to receive successful events (receive incoming message, send message):
 ```javascript
 //Call this function after authentication process is completed
-azstack.onAuthenticationCompleted = function (code, authenticatedUser) {
+azstack.onAuthenticationCompleted = function (code, authenticatedUser, msg) {
 }
 
 //Function triggered when receiving incoming message
@@ -220,6 +223,74 @@ azstack.onChatGroupJoinPublic = function(packet){
 azstack.onChatGroupGetListPublic = function(packet){
 }
 
+//Triggered when having video/audio call
+azstack.onInviteVideoCall = function(packet){
+}
+
+//Triggered when a video/voice call is stopped
+azstack.onVideoCallStop = function(packet){
+}
+
+//Triggered when a video/voice call is starting
+azstack.onVideoCallConnecting = function(packet){
+}
+
+//Triggered when a video/voice call is ringing
+azstack.onVideoCallRinging = function(packet){
+}
+
+//Triggered when a video/voice call is rejected
+azstack.onVideoCallRejected = function(packet){
+}
+
+//Triggered when a video/voice call is replied
+azstack.onVideoCallAnswered = function(packet){
+}
+
+//Triggered when a video/voice call is busy
+azstack.onVideoCallBusy = function(packet){
+}
+
+//Triggered when a video/voice call is timed out without answering
+azstack.onVideoCallNotAnswered = function(packet){
+}
+
+//Triggered when error occurs
+azstack.onVideoCallError = function(packet){
+}
+
+//Triggered when local video stream is loaded
+azstack.onVideoCallLocalVideoLoaded = function(){
+}
+
+//Triggered when remote video stream is loaded
+azstack.onVideoCallRemoteVideoLoaded = function(){
+}
+
+//Triggered when your account on another device is busy
+azstack.onVideoCallBusyByMe = function(packet) {
+}
+
+//Triggered when your account on another device has replied a call
+azstack.onVideoCallAnsweredByMe = function(packet) {
+}
+
+//Triggered when your account on another device has rejected a call
+azstack.onVideoCallRejectedByMe = function(packet) {
+}
+
+//Triggered when your account on another device has stopped a call
+azstack.onVideoCallStopByMe = function(packet) {
+}
+
+//Triggered when your account on another device has timed out without answering
+azstack.onVideoCallNotAnsweredByMe = function(packet) {
+}
+
+//Triggered when your account on another device has error in a call
+azstack.onVideoCallErrorByMe = function(packet) {
+}
+
 ```
 # 5. connect:
 Call this function to connect to AZStack server and implement authentication process:
@@ -239,13 +310,13 @@ Parameters:
 > fullname: Name (is used to send push notification to mobile when user is not online)
 
 # 6. azGetListModifiedConversations:
-Lấy danh sách conversation sau khi authen thành công:
+Get conversations after authenticate successfully:
 ```javascript
 azstack.azGetListModifiedConversations(lastUpdate);
 ```
 Parameters:
 
-> lastUpdate: only get list of conversations that have change after [lastUpdate] (tính bằng miliseconds)
+> lastUpdate: only get list of conversations that have change after [lastUpdate] (in miliseconds)
 
 # 7. azGetListModifiedMessages:
 Get list of message from 1 conversation:
@@ -254,7 +325,7 @@ azstack.azGetListModifiedMessages(lastUpdate, type, chatId);
 ```
 Parameters:
 
-> lastUpdate: only get list of conversations that have change after [lastUpdate] (tính bằng miliseconds)
+> lastUpdate: only get list of conversations that have change after [lastUpdate] (in miliseconds)
 
 > type: type = 1 (chat 1 - 1), type = 2 (chat group)
 
@@ -287,7 +358,7 @@ azstack.getUserInfoAndRequestToServerWithCallBack(userId, callback);
 ```
 Parameters:
 
-> chatId: userId of user
+> userId: userId of user
 
 > callback: after request to server and get user data, function will be called
 
@@ -307,14 +378,14 @@ azstack.getUserInfoByUsernameAndRequestToServerWithCallBack(azStackUserID, callb
 ```
 Parameters:
 
-> chatId: azStackUserID of user
+> azStackUserID: azStackUserID of user
 
 > callback: after request to server and get user data, function will be called
 
 # 13. azSendMessage:
 Send 1 message text chat 1 - 1
 ```javascript
-azstack.azSendMessage(msgContent, azStackUserID, msgId);
+azstack.azSendMessage(msgContent, azStackUserID, msgId, callback);
 ```
 Parameters:
 
@@ -324,10 +395,12 @@ Parameters:
 
 > msgId: Id of message must be unique related to conversation and sender. Should be: currentMsgId++
 
+> callback: after request to server and get data, function will be called
+
 # 14. azSendMessageFileUrl:
 Send 1 message picture/audio/video/file chat 1 - 1
 ```javascript
-azstack.azSendMessageFileUrl(url, fileName, msgType, azStackUserID, msgId, fileLength, width, height);
+azstack.azSendMessageFileUrl(url, fileName, msgType, azStackUserID, msgId, fileLength, width, height, duration, callback);
 ```
 Parameters:
 
@@ -347,10 +420,14 @@ Parameters:
 
 > height: height of picture (photo message)
 
+> duration: thời gian của message (voice message)
+
+> callback: after request to server and get data, function will be called
+
 # 15. azSendMessageSticker:
 Send message sticker chat 1 - 1
 ```javascript
-azstack.azSendMessageSticker(azStackUserID, imgName, catId, msgId, url, width, height);
+azstack.azSendMessageSticker(azStackUserID, imgName, catId, msgId, url, width, height, callback);
 ```
 Parameters:
 
@@ -368,10 +445,12 @@ Parameters:
 
 > height: height of sticker
 
+> callback: after request to server and get data, function will be called
+
 # 16. azSendMessageGroup:
 Send one message text chat group
 ```javascript
-azstack.azSendMessageGroup(msgContent, groupId, msgId);
+azstack.azSendMessageGroup(msgContent, groupId, msgId, callback);
 ```
 Parameters:
 
@@ -381,10 +460,12 @@ Parameters:
 
 > msgId: Id of message, must be unique related to conversation and sender. Should be: currentMsgId++
 
+> callback: after request to server and get data, function will be called
+
 # 17. azSendMessageFileUrlGroup:
-Send one message ảnh/audio/video/file chat group
+Send one message photo/audio/video/file chat group
 ```javascript
-azstack.azSendMessageFileUrlGroup(groupId, msgId, url, msgType, fileName, fileLength, width, height);
+azstack.azSendMessageFileUrlGroup(groupId, msgId, url, msgType, fileName, fileLength, width, height, duration, callback);
 ```
 Parameters:
 
@@ -404,10 +485,14 @@ Parameters:
 
 > height: height of picture, (photo message)
 
+> duration: duration of voice message
+
+> callback: after request to server and get data, function will be called
+
 # 18. azSendMessageStickerGroup:
 Send one message sticker chat group
 ```javascript
-azstack.azSendMessageStickerGroup(groupId, imgName, catId, msgId, url, width, height);
+azstack.azSendMessageStickerGroup(groupId, imgName, catId, msgId, url, width, height, callback);
 ```
 Parameters:
 
@@ -424,6 +509,8 @@ Parameters:
 > width: width of sticker
 
 > height: height of sticker
+
+> callback: after request to server and get data, function will be called
 
 # 19. azSendMessageReport:
 Report that message has receive chat message 1 - 1
@@ -665,7 +752,7 @@ Parameters:
 # 38. azMessageBroadCast:
 Send text message to broadcast
 ```javascript
-azstack.azMessageBroadCast(broadcast, msg, msgId);
+azstack.azMessageBroadCast(broadcast, msg, msgId, callback);
 ```
 Parameters:
 
@@ -675,10 +762,12 @@ Parameters:
 
 > msgId: Id of message, must be unique related to conversation and sender. Should be: currentMsgId++
 
+> callback: after sent message, this function will be triggered
+
 # 39. azMessageStickerBroadCast:
 Send sticker message to broadcast
 ```javascript
-azstack.azMessageStickerBroadCast(broadcast, msgId, imgName, catId, url, width, height);
+azstack.azMessageStickerBroadCast(broadcast, msgId, imgName, catId, url, width, height, callback);
 ```
 Parameters:
 
@@ -696,10 +785,12 @@ Parameters:
 
 > height: height of sticker
 
+> callback: after sent message, this function will be triggered
+
 # 40. azMessageFileBroadCast:
-Send one message ảnh/audio/video/file chat broadcast
+Send one message photo/audio/video/file chat broadcast
 ```javascript
-azstack.azMessageFileBroadCast(broadcast, msgId, type, url, fileName, fileLength, width, height);
+azstack.azMessageFileBroadCast(broadcast, msgId, type, url, fileName, fileLength, width, height, callback);
 ```
 Parameters:
 
@@ -718,6 +809,8 @@ Parameters:
 > width: width of picture, (photo message)
 
 > height: height of picture, (photo message)
+
+> callback: after sent message, this function will be triggered
 
 # 41. azChatBroadCastDeleteList:
 Delete broadcast
@@ -755,3 +848,264 @@ Get list of public group/channel
 ```javascript
 azstack.azChatGroupGetListPublic();
 ```
+Parameters:
+
+# 45. azGetListModifiedConversationsPage:
+Get conversations by page after authenticate successfully
+```javascript
+azstack.azGetListModifiedConversationsPage(page, lastCreated, callback);
+```
+Parameters:
+
+> page: page number
+
+> lastCreated: only get list of conversations that have created after [lastCreated] (in miliseconds)
+
+> callback: after request to server and get user data, function will be called
+
+# 46. azGetListModifiedMessagesPage:
+Get list of message from 1 conversation theo page, option callback:
+```javascript
+azstack.azGetListModifiedMessagesPage(page, lastCreated, type, chatId, callback);
+```
+Parameters:
+
+> page: page number
+
+> lastCreated: only get list of messages that have created after [lastCreated] (in miliseconds)
+
+> type: type = 1 (chat 1 - 1), type = 2 (chat group)
+
+> chatId: userId of user or Id of group
+
+> callback: after request to server and get user data, function will be called
+
+# 47. azGetListUnreadMessagesPage:
+Get list of unread message from 1 conversation theo page, option callback:
+```javascript
+azstack.azGetListUnreadMessagesPage(page, type, chatId, callback);
+```
+Parameters:
+
+> page: page number
+
+> type: type = 1 (chat 1 - 1), type = 2 (chat group)
+
+> chatId: userId of user or Id of group
+
+> callback: after request to server and get user data, function will be called
+
+# 48. azStartVideoCall:
+Start a call to a user with option video or voice call:
+```javascript
+azstack.azStartVideoCall(toChatId, callId, localVideoId, remoteVideoId, hasVideo);
+```
+Parameters:
+
+> toChatId: id of callee
+
+> callId: unique id
+
+> localVideoId: id of local video/audio
+
+> remoteVideoId: id of remote video/audio
+
+> hasVideo: true : video call  false: audio call
+
+# 49. azAcceptVideoCall:
+Accept to anwser a call:
+```javascript
+azstack.azAcceptVideoCall(fromChatId, callId, localVideoId, remoteVideoId, hasVideo);
+```
+Parameters:
+
+> fromChatId: id of caller
+
+> callId: id of the call which received in medtho onInviteVideoCall
+
+> localVideoId: id of local video/audio
+
+> remoteVideoId: id of remote video/audio
+
+> hasVideo: true: video call   false: audio call
+
+# 50. azRejectVideoCall:
+Reject to answer a call:
+```javascript
+azstack.azRejectVideoCall(fromChatId, callId);
+```
+Parameters:
+
+> fromChatId: id of caller
+
+> callId: id of the call which received in method onInviteVideoCall
+
+# 51. azStopVideoCall:
+Stop a call:
+```javascript
+azstack.azStopVideoCall(fromChatId, callId);
+```
+Parameters:
+
+> fromChatId: id of caller
+
+> callId: id of the call which received in method onInviteVideoCall
+
+# 52. azNotAnsweredVideoCall:
+Emit a call is not answered:
+```javascript
+azstack.azNotAnsweredVideoCall(toChatId, callId);
+```
+Parameters:
+
+> toChatId: id of caller
+
+> callId: id of the call which received in method onInviteVideoCall
+
+# 53. toggleVideoState:
+toggle local video with optional param state
+```javascript
+azstack.azWebRTC.toggleVideoState(state);
+```
+Parameters:
+
+> state: true/false is equivalent to on/off video
+
+# 54. toggleAudioState:
+toggle local audio with optional param state
+```javascript
+azstack.azWebRTC.toggleAudioState(state);
+```
+Parameters:
+
+> state: true/false is equivalent to on/off audio
+
+# 55. updateUserInfoWithCallBack:
+Update user info by user id
+```javascript
+azstack.updateUserInfoWithCallBack(userId, callback);
+```
+Parameters:
+
+> userId: id of user
+
+> callback: after request to server and get user data, function will be called
+
+# 56. updateUserInfoByUsernameWithCallBack:
+Update user info by azStackUserID
+```javascript
+azstack.updateUserInfoByUsernameWithCallBack(azStackUserID, callback);
+```
+Parameters:
+
+> azStackUserID: azStackUserID of user
+
+> callback: after request to server and get user data, function will be called
+
+# 57. azGetBroadcastInfo:
+Get broadcast information from server
+```javascript
+azstack.azGetBroadcastInfo(broadcastId, callback);
+```
+Parameters:
+
+> broadcastId: Id of broadcast
+
+> callback: after receive broadcast information, this function will be triggered
+
+# 58. azLeaveGroupAndChangeAdmin:
+Leave group and change group's admin
+```javascript
+azstack.azLeaveGroupAndChangeAdmin(leaveUser, newAdmin, group, msgId, callback);
+```
+Parameters:
+
+> leaveUser: user id of whom left group
+
+> newAdmin: user id of new admin
+
+> group: id of group
+
+> msgId: Id of message, must be unique related to conversation and sender. Should be: currentMsgId++
+
+> callback: callback after leaving group
+
+# 59. azChargingGetBalance:
+Get user's balance
+```javascript
+azstack.azChargingGetBalance(callback);
+```
+Parameters:
+
+> callback
+
+# 60. getUserInfoByListUsernameAndRequestToServerWithCallBack:
+Get information of user by list azStackUserID with callback
+```javascript
+azstack.getUserInfoByListUsernameAndRequestToServerWithCallBack(listAzStackUserID, callback);
+```
+Parameters:
+
+> listAzStackUserID: listAzStackUserID of user
+
+> callback: after request to server and get user data, function will be called
+
+# 61. getUserInfoByListUsernameAndRequestToServer:
+Get information of user by list azStackUserID
+```javascript
+azstack.getUserInfoByListUsernameAndRequestToServer(listAzStackUserID);
+```
+Parameters:
+
+> listAzStackUserID: listAzStackUserID of user
+
+# 62. updateUserInfoByListUsernameWithCallBack:
+Update users info by list of azStackUserID
+```javascript
+azstack.updateUserInfoByListUsernameWithCallBack(listAzStackUserID, callback);
+```
+Parameters:
+
+> listAzStackUserID: listAzStackUserID của user
+
+> callback: after request to server and get user data, function will be called
+
+# 63. azSendMessageLocation:
+Send 1 message location chat 1 - 1
+```javascript
+azstack.azSendMessageLocation(long, lat, addr, azStackUserID, msgId, callback);
+```
+Parameters:
+
+> long: longitue of location
+
+> lat: latitude of location
+
+> addr: address of location
+
+> azStackUserID: azStackUserID of user who receive message
+
+> msgId: Id of message must be unique related to conversation and sender. Should be: currentMsgId++
+
+> callback: after request to server and get data, function will be called
+
+# 64. azSendMessageLocationGroup:
+Send 1 message location chat group
+```javascript
+azstack.azSendMessageLocationGroup(groupId, groupName, long, lat, addr, msgId, callback);
+```
+Parameters:
+
+> groupId: id of group
+
+> groupName: group name
+
+> long: longitue of location
+
+> lat: latitude of location
+
+> addr: address of location
+
+> msgId: id of message must be unique related to conversation and sender. Should be: currentMsgId++
+
+> callback: after request to server and get data, function will be called

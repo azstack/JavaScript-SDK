@@ -223,71 +223,71 @@ azstack.onChatGroupJoinPublic = function(packet){
 azstack.onChatGroupGetListPublic = function(packet){
 }
 
-//Triggered when having video/audio call
+//Triggered when co cuoc goi video/voice
 azstack.onInviteVideoCall = function(packet){
 }
 
-//Triggered when a video/voice call is stopped
+//Triggered when cuoc goi video/voice stop
 azstack.onVideoCallStop = function(packet){
 }
 
-//Triggered when a video/voice call is starting
+//Triggered when cuoc goi video/voice dang bat dau
 azstack.onVideoCallConnecting = function(packet){
 }
 
-//Triggered when a video/voice call is ringing
+//Triggered when cuoc goi video/voice dang đổ chuông
 azstack.onVideoCallRinging = function(packet){
 }
 
-//Triggered when a video/voice call is rejected
+//Triggered when cuoc goi video/voice bị từ chối
 azstack.onVideoCallRejected = function(packet){
 }
 
-//Triggered when a video/voice call is replied
+//Triggered when cuoc goi video/voice đã trả lời
 azstack.onVideoCallAnswered = function(packet){
 }
 
-//Triggered when a video/voice call is busy
+//Triggered when cuoc goi video/voice bận
 azstack.onVideoCallBusy = function(packet){
 }
 
-//Triggered when a video/voice call is timed out without answering
+//Triggered when cuoc goi video/voice không trả lời
 azstack.onVideoCallNotAnswered = function(packet){
 }
 
-//Triggered when error occurs
+//Triggered when cuoc goi video/voice lỗi
 azstack.onVideoCallError = function(packet){
 }
 
-//Triggered when local video stream is loaded
+//Triggered when cuoc goi video/voice load được video máy của mình
 azstack.onVideoCallLocalVideoLoaded = function(){
 }
 
-//Triggered when remote video stream is loaded
+//Triggered when cuoc goi video/voice load được video máy của người gọi mình
 azstack.onVideoCallRemoteVideoLoaded = function(){
 }
 
-//Triggered when your account on another device is busy
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình bân
 azstack.onVideoCallBusyByMe = function(packet) {
 }
 
-//Triggered when your account on another device has replied a call
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình trả lời
 azstack.onVideoCallAnsweredByMe = function(packet) {
 }
 
-//Triggered when your account on another device has rejected a call
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình từ chối
 azstack.onVideoCallRejectedByMe = function(packet) {
 }
 
-//Triggered when your account on another device has stopped a call
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình stop
 azstack.onVideoCallStopByMe = function(packet) {
 }
 
-//Triggered when your account on another device has timed out without answering
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình không trả lời
 azstack.onVideoCallNotAnsweredByMe = function(packet) {
 }
 
-//Triggered when your account on another device has error in a call
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình lỗi
 azstack.onVideoCallErrorByMe = function(packet) {
 }
 
@@ -310,13 +310,13 @@ Parameters:
 > fullname: Name (is used to send push notification to mobile when user is not online)
 
 # 6. azGetListModifiedConversations:
-Get conversations after authenticate successfully:
+Lấy danh sách conversation sau khi authen thành công:
 ```javascript
 azstack.azGetListModifiedConversations(lastUpdate);
 ```
 Parameters:
 
-> lastUpdate: only get list of conversations that have change after [lastUpdate] (in miliseconds)
+> lastUpdate: only get list of conversations that have change after [lastUpdate] (tính bằng miliseconds)
 
 # 7. azGetListModifiedMessages:
 Get list of message from 1 conversation:
@@ -325,7 +325,7 @@ azstack.azGetListModifiedMessages(lastUpdate, type, chatId);
 ```
 Parameters:
 
-> lastUpdate: only get list of conversations that have change after [lastUpdate] (in miliseconds)
+> lastUpdate: only get list of conversations that have change after [lastUpdate] (tính bằng miliseconds)
 
 > type: type = 1 (chat 1 - 1), type = 2 (chat group)
 
@@ -463,7 +463,7 @@ Parameters:
 > callback: after request to server and get data, function will be called
 
 # 17. azSendMessageFileUrlGroup:
-Send one message photo/audio/video/file chat group
+Send one message ảnh/audio/video/file chat group
 ```javascript
 azstack.azSendMessageFileUrlGroup(groupId, msgId, url, msgType, fileName, fileLength, width, height, duration, callback);
 ```
@@ -485,7 +485,7 @@ Parameters:
 
 > height: height of picture, (photo message)
 
-> duration: duration of voice message
+> duration: thời gian của message (voice message)
 
 > callback: after request to server and get data, function will be called
 
@@ -788,7 +788,7 @@ Parameters:
 > callback: after sent message, this function will be triggered
 
 # 40. azMessageFileBroadCast:
-Send one message photo/audio/video/file chat broadcast
+Send one message ảnh/audio/video/file chat broadcast
 ```javascript
 azstack.azMessageFileBroadCast(broadcast, msgId, type, url, fileName, fileLength, width, height, callback);
 ```
@@ -851,15 +851,15 @@ azstack.azChatGroupGetListPublic();
 Parameters:
 
 # 45. azGetListModifiedConversationsPage:
-Get conversations by page after authenticate successfully
+Lấy danh sách conversation sau khi authen thành công theo page, option callback:
 ```javascript
 azstack.azGetListModifiedConversationsPage(page, lastCreated, callback);
 ```
 Parameters:
 
-> page: page number
+> page: Lấy danh sách theo page
 
-> lastCreated: only get list of conversations that have created after [lastCreated] (in miliseconds)
+> lastCreated: only get list of conversations that have created after [lastCreated] (tính bằng miliseconds)
 
 > callback: after request to server and get user data, function will be called
 
@@ -870,9 +870,9 @@ azstack.azGetListModifiedMessagesPage(page, lastCreated, type, chatId, callback)
 ```
 Parameters:
 
-> page: page number
+> page: Lấy danh sách theo page
 
-> lastCreated: only get list of messages that have created after [lastCreated] (in miliseconds)
+> lastCreated: only get list of messages that have created after [lastCreated] (tính bằng miliseconds)
 
 > type: type = 1 (chat 1 - 1), type = 2 (chat group)
 
@@ -887,7 +887,7 @@ azstack.azGetListUnreadMessagesPage(page, type, chatId, callback);
 ```
 Parameters:
 
-> page: page number
+> page: Lấy danh sách theo page
 
 > type: type = 1 (chat 1 - 1), type = 2 (chat group)
 
@@ -902,15 +902,15 @@ azstack.azStartVideoCall(toChatId, callId, localVideoId, remoteVideoId, hasVideo
 ```
 Parameters:
 
-> toChatId: id of callee
+> toChatId: id của user cuộc gọi thực hiện đến
 
-> callId: unique id
+> callId: 1 số độc nhất không lặp lại
 
-> localVideoId: id of local video/audio
+> localVideoId: id của thẻ video/audio hiện hình ảnh / tiếng nói của mình
 
-> remoteVideoId: id of remote video/audio
+> remoteVideoId: id của thẻ video/audio hiện thị hình ảnh / tiếng nói của mục tiêu cuộc gọi hướng đến
 
-> hasVideo: true : video call  false: audio call
+> hasVideo: true/false ứng với đây là cuộc gọi video/audio
 
 # 49. azAcceptVideoCall:
 Accept to anwser a call:
@@ -919,15 +919,15 @@ azstack.azAcceptVideoCall(fromChatId, callId, localVideoId, remoteVideoId, hasVi
 ```
 Parameters:
 
-> fromChatId: id of caller
+> fromChatId: id của user cuộc gọi thực hiện đến
 
-> callId: id of the call which received in medtho onInviteVideoCall
+> callId: id của cuộc gọi nhận được trong event onInviteVideoCall
 
-> localVideoId: id of local video/audio
+> localVideoId: id của thẻ video/audio hiện hình ảnh / tiếng nói của mình
 
-> remoteVideoId: id of remote video/audio
+> remoteVideoId: id của thẻ video/audio hiện thị hình ảnh / tiếng nói của mục tiêu thực hiện cuộc gọi
 
-> hasVideo: true: video call   false: audio call
+> hasVideo: true/false ứng với đây là cuộc gọi video/audio, nhận được trong event onInviteVideoCall
 
 # 50. azRejectVideoCall:
 Reject to answer a call:
@@ -936,9 +936,9 @@ azstack.azRejectVideoCall(fromChatId, callId);
 ```
 Parameters:
 
-> fromChatId: id of caller
+> fromChatId: id của user cuộc gọi thực hiện đến
 
-> callId: id of the call which received in method onInviteVideoCall
+> callId: id của cuộc gọi nhận được trong event onInviteVideoCall
 
 # 51. azStopVideoCall:
 Stop a call:
@@ -947,9 +947,9 @@ azstack.azStopVideoCall(fromChatId, callId);
 ```
 Parameters:
 
-> fromChatId: id of caller
+> fromChatId: id của user cuộc gọi thực hiện đến
 
-> callId: id of the call which received in method onInviteVideoCall
+> callId: id của cuộc gọi nhận được trong event onInviteVideoCall
 
 # 52. azNotAnsweredVideoCall:
 Emit a call is not answered:
@@ -958,9 +958,9 @@ azstack.azNotAnsweredVideoCall(toChatId, callId);
 ```
 Parameters:
 
-> toChatId: id of caller
+> toChatId: id của user cuộc gọi thực hiện đến
 
-> callId: id of the call which received in method onInviteVideoCall
+> callId: id của cuộc gọi nhận được trong event onInviteVideoCall
 
 # 53. toggleVideoState:
 toggle local video with optional param state
@@ -969,7 +969,7 @@ azstack.azWebRTC.toggleVideoState(state);
 ```
 Parameters:
 
-> state: true/false is equivalent to on/off video
+> state: true/false ứng với trạng thái video bật/tắt, nếu không có biến này, thay đổi trạng thái hiện tại của video tắt -> bật, bật -> tắt
 
 # 54. toggleAudioState:
 toggle local audio with optional param state
@@ -978,27 +978,27 @@ azstack.azWebRTC.toggleAudioState(state);
 ```
 Parameters:
 
-> state: true/false is equivalent to on/off audio
+> state: true/false ứng với trạng thái audio bật/tắt, nếu không có biến này, thay đổi trạng thái hiện tại của audio tắt -> bật, bật -> tắt
 
 # 55. updateUserInfoWithCallBack:
-Update user info by user id
+cập nhật thông tin user theo userId có callback
 ```javascript
 azstack.updateUserInfoWithCallBack(userId, callback);
 ```
 Parameters:
 
-> userId: id of user
+> userId: user Id của user
 
 > callback: after request to server and get user data, function will be called
 
 # 56. updateUserInfoByUsernameWithCallBack:
-Update user info by azStackUserID
+cập nhật thông tin user theo azStackUserID có callback
 ```javascript
 azstack.updateUserInfoByUsernameWithCallBack(azStackUserID, callback);
 ```
 Parameters:
 
-> azStackUserID: azStackUserID of user
+> azStackUserID: azStackUserID của user
 
 > callback: after request to server and get user data, function will be called
 
@@ -1014,30 +1014,30 @@ Parameters:
 > callback: after receive broadcast information, this function will be triggered
 
 # 58. azLeaveGroupAndChangeAdmin:
-Leave group and change group's admin
+Rời nhóm và đổi admin của nhóm
 ```javascript
 azstack.azLeaveGroupAndChangeAdmin(leaveUser, newAdmin, group, msgId, callback);
 ```
 Parameters:
 
-> leaveUser: user id of whom left group
+> leaveUser: User id của người rời nhóm
 
-> newAdmin: user id of new admin
+> newAdmin: User id của admin mới muốn chuyển đến
 
-> group: id of group
+> group: Id của group
 
 > msgId: Id of message, must be unique related to conversation and sender. Should be: currentMsgId++
 
-> callback: callback after leaving group
+> callback: hàm thực hiện sau khi rời nhóm thành công
 
 # 59. azChargingGetBalance:
-Get user's balance
+Lấy thông tin balace của user
 ```javascript
 azstack.azChargingGetBalance(callback);
 ```
 Parameters:
 
-> callback
+> callback: hàm thực hiện sau có dữ liệu trả về
 
 # 60. getUserInfoByListUsernameAndRequestToServerWithCallBack:
 Get information of user by list azStackUserID with callback
@@ -1060,7 +1060,7 @@ Parameters:
 > listAzStackUserID: listAzStackUserID of user
 
 # 62. updateUserInfoByListUsernameWithCallBack:
-Update users info by list of azStackUserID
+cập nhật thông tin user theo list azStackUserID có callback
 ```javascript
 azstack.updateUserInfoByListUsernameWithCallBack(listAzStackUserID, callback);
 ```
@@ -1077,11 +1077,11 @@ azstack.azSendMessageLocation(long, lat, addr, azStackUserID, msgId, callback);
 ```
 Parameters:
 
-> long: longitue of location
+> long: địa chỉ long của location
 
-> lat: latitude of location
+> lat: địa chỉ lat của location
 
-> addr: address of location
+> addr: địa chỉ của location
 
 > azStackUserID: azStackUserID of user who receive message
 
@@ -1096,16 +1096,16 @@ azstack.azSendMessageLocationGroup(groupId, groupName, long, lat, addr, msgId, c
 ```
 Parameters:
 
-> groupId: id of group
+> groupId: id của group
 
-> groupName: group name
+> groupName: tên của group
 
-> long: longitue of location
+> long: địa chỉ long của location
 
-> lat: latitude of location
+> lat: địa chỉ lat của location
 
-> addr: address of location
+> addr: địa chỉ của location
 
-> msgId: id of message must be unique related to conversation and sender. Should be: currentMsgId++
+> msgId: Id of message must be unique related to conversation and sender. Should be: currentMsgId++
 
 > callback: after request to server and get data, function will be called

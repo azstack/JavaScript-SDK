@@ -29,6 +29,9 @@ Please review example (authentication, chat):
 		//log level
 		azstack.logLevel = 'INFO';
 
+		//call options
+		azstack.azSetCallOptions('MANNUALLY', { enableAudio: true, enableVideo: true });// call mode: MANNUALLY, AUTO-IFRAME, AUTO-POPUP; second parameter: init enable audio and video (can toggle on/off later)
+
 		//SDK delegate --------------------------------------------- -->
 		azstack.onAuthenticationCompleted = function (code, authenticatedUser, msg) {
 			azstack.log('INFO', 'onAuthenticationCompleted code: ' + code + ', msg: ' + msg + ', authenticatedUser');
@@ -121,6 +124,10 @@ azstack.onGroupMessageReceived = function (msg) {
 
 //Triggered when retrieving list conversation
 azstack.onListModifiedConversationReceived = function (packet) {
+}
+
+//Triggered when retrieving list conversation by page and tag
+azstack.onListModifiedConversationByPageAndTagReceived = function (packet) {
 }
 
 //Triggered when retrieving list of read messages
@@ -223,72 +230,177 @@ azstack.onChatGroupJoinPublic = function(packet){
 azstack.onChatGroupGetListPublic = function(packet){
 }
 
-//Triggered when co cuoc goi video/voice
+//Triggered when get push customize event
+azstack.onPushCustomizeEvent = function(packet){
+}
+
+//Triggered when get resut from join chat conference
+azstack.onJoinConferenceChat = function(packet){
+}
+
+//Triggered when co cuoc goi video/voice (MANNUALLY mode only)
 azstack.onInviteVideoCall = function(packet){
 }
 
-//Triggered when cuoc goi video/voice stop
+//Triggered when cuoc goi video/voice stop (MANNUALLY mode only)
 azstack.onVideoCallStop = function(packet){
 }
 
-//Triggered when cuoc goi video/voice dang bat dau
+//Triggered when cuoc goi video/voice dang bat dau (MANNUALLY mode only)
 azstack.onVideoCallConnecting = function(packet){
 }
 
-//Triggered when cuoc goi video/voice dang đổ chuông
+//Triggered when cuoc goi video/voice dang đổ chuông (MANNUALLY mode only)
 azstack.onVideoCallRinging = function(packet){
 }
 
-//Triggered when cuoc goi video/voice bị từ chối
+//Triggered when cuoc goi video/voice bị từ chối (MANNUALLY mode only)
 azstack.onVideoCallRejected = function(packet){
 }
 
-//Triggered when cuoc goi video/voice đã trả lời
+//Triggered when cuoc goi video/voice đã trả lời (MANNUALLY mode only)
 azstack.onVideoCallAnswered = function(packet){
 }
 
-//Triggered when cuoc goi video/voice bận
+//Triggered when cuoc goi video/voice bận (MANNUALLY mode only)
 azstack.onVideoCallBusy = function(packet){
 }
 
-//Triggered when cuoc goi video/voice không trả lời
+//Triggered when cuoc goi video/voice không trả lời (MANNUALLY mode only)
 azstack.onVideoCallNotAnswered = function(packet){
 }
 
-//Triggered when cuoc goi video/voice lỗi
+//Triggered when cuoc goi video/voice lỗi (MANNUALLY mode only)
 azstack.onVideoCallError = function(packet){
 }
 
-//Triggered when cuoc goi video/voice load được video máy của mình
-azstack.onVideoCallLocalVideoLoaded = function(){
-}
-
-//Triggered when cuoc goi video/voice load được video máy của người gọi mình
-azstack.onVideoCallRemoteVideoLoaded = function(){
-}
-
-//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình bân
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình bân (MANNUALLY mode only)
 azstack.onVideoCallBusyByMe = function(packet) {
 }
 
-//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình trả lời
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình trả lời (MANNUALLY mode only)
 azstack.onVideoCallAnsweredByMe = function(packet) {
 }
 
-//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình từ chối
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình từ chối (MANNUALLY mode only)
 azstack.onVideoCallRejectedByMe = function(packet) {
 }
 
-//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình stop
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình stop (MANNUALLY mode only)
 azstack.onVideoCallStopByMe = function(packet) {
 }
 
-//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình không trả lời
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình không trả lời (MANNUALLY mode only)
 azstack.onVideoCallNotAnsweredByMe = function(packet) {
 }
 
-//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình lỗi
+//Triggered when cuoc goi video/voice thiết bị khác trên tài khoản của mình lỗi (MANNUALLY mode only)
 azstack.onVideoCallErrorByMe = function(packet) {
+}
+
+//Triggered when cuoc goi callout dang bat dau (MANNUALLY mode only)
+azstack.onCalloutConnecting = function(packet){
+}
+
+//Triggered when cuoc goi callout dang đổ chuông (MANNUALLY mode only)
+azstack.onCalloutRinging = function(packet){
+}
+
+//Triggered when cuoc goi callout bị từ chối (MANNUALLY mode only)
+azstack.onCalloutRejected = function(packet){
+}
+
+//Triggered when cuoc goi callout đã trả lời (MANNUALLY mode only)
+azstack.onCalloutNotAnswered = function(packet){
+}
+
+//Triggered when cuoc goi callout stop (MANNUALLY mode only)
+azstack.onCalloutStop = function(packet){
+}
+
+//Triggered when cuoc goi callout bận (MANNUALLY mode only)
+azstack.onCalloutBusy = function(packet){
+}
+
+//Triggered when cuoc goi callout không trả lời (MANNUALLY mode only)
+azstack.onCalloutNotAnswered = function(packet){
+}
+
+//Triggered when cuoc goi callout lỗi (MANNUALLY mode only)
+azstack.onCalloutError = function(packet){
+}
+
+//Triggered when co cuoc goi callin (MANNUALLY mode only)
+azstack.onCallinStart = function(packet){
+}
+
+//Triggered when cuoc goi callin stop when ringing (MANNUALLY mode only)
+azstack.onCallinRingingStop = function(packet){
+}
+
+//Triggered when co cuoc goi callin stop (MANNUALLY mode only)
+azstack.onCallinStop = function(packet){
+}
+
+//Triggered when cuoc goi callin error (MANNUALLY mode only)
+azstack.onCallinError = function(packet){
+}
+
+//Triggered when cuoc goi callin thiết bị khác trên tài khoản của mình bân (MANNUALLY mode only)
+azstack.onCallinBusyByMe = function(packet) {
+}
+
+//Triggered when cuoc goi callin thiết bị khác trên tài khoản của mình trả lời (MANNUALLY mode only)
+azstack.onCallinAnsweredByMe = function(packet) {
+}
+
+//Triggered when cuoc goi callin thiết bị khác trên tài khoản của mình từ chối (MANNUALLY mode only)
+azstack.onCallinRejectByMe = function(packet) {
+}
+
+//Triggered when cuoc goi callin thiết bị khác trên tài khoản của mình stop (MANNUALLY mode only)
+azstack.onCallinStopByMe = function(packet) {
+}
+
+//Triggered when cuoc goi callin thiết bị khác trên tài khoản của mình không trả lời (MANNUALLY mode only)
+azstack.onCallinNotAnsweredByMe = function(packet) {
+}
+
+//Triggered when cuoc goi callin thiết bị khác trên tài khoản của mình lỗi (MANNUALLY mode only)
+azstack.onCallinErrorByMe = function(packet) {
+}
+
+//Triggered when cuoc goi video/voice load được video máy của mình (MANNUALLY mode only)
+azstack.onVideoCallLocalVideoLoaded = function(){
+}
+
+//Triggered when cuoc goi video/voice load được video máy của người gọi mình (MANNUALLY mode only)
+azstack.onVideoCallRemoteVideoLoaded = function(){
+}
+
+//trigger when WebRTC inited in call mode MANNUALLY
+azstack.onVideoCallWebRTCInit = function() {
+}
+
+//trigger when WebRTC destroyed in call mode MANNUALLY
+azstack.onVideoCallWebRTCDestroy = function(packet) {
+}
+
+//trigger when iframe inited in call mode AUTO-IFRAME
+azstack.onVideoCallIframeInit = function() {
+}
+
+
+//trigger when iframe destroyed in call mode AUTO-IFRAME
+azstack.onVideoCallIframeDestroy = function(packet) {
+}
+
+//trigger when popup-window inited in call mode AUTO-POPUP
+azstack.onVideoCallPopupInit = function() {
+}
+
+//trigger when popup-window destroyed in call mode AUTO-POPUP
+azstack.onVideoCallPopupDestroy = function(packet) {
 }
 
 ```
@@ -684,11 +796,15 @@ Parameters:
 # 32. azListFiles:
 Get list of files in all conversation
 ```javascript
-azstack.azListFiles(lastUpdate);
+azstack.azListFiles(lastUpdate, chatType, chatId);
 ```
 Parameters:
 
 > lastUpdate: Only get files that have updated after this time (miliseconds)
+
+> chatType: optional, chat type of conversation which getting files
+
+> chatId: optional, chat id of conversation which getting files
 
 # 33. azChatGroupChangeAdmin:
 Change admin to group
@@ -913,7 +1029,7 @@ Parameters:
 > hasVideo: true/false ứng với đây là cuộc gọi video/audio
 
 # 49. azAcceptVideoCall:
-Accept to anwser a call:
+Accept to anwser a call (MANNUALLY mode only):
 ```javascript
 azstack.azAcceptVideoCall(fromChatId, callId, localVideoId, remoteVideoId, hasVideo);
 ```
@@ -930,7 +1046,7 @@ Parameters:
 > hasVideo: true/false ứng với đây là cuộc gọi video/audio, nhận được trong event onInviteVideoCall
 
 # 50. azRejectVideoCall:
-Reject to answer a call:
+Reject to answer a call (MANNUALLY mode only):
 ```javascript
 azstack.azRejectVideoCall(fromChatId, callId);
 ```
@@ -941,7 +1057,7 @@ Parameters:
 > callId: id của cuộc gọi nhận được trong event onInviteVideoCall
 
 # 51. azStopVideoCall:
-Stop a call:
+Stop a call (MANNUALLY mode only):
 ```javascript
 azstack.azStopVideoCall(fromChatId, callId);
 ```
@@ -952,7 +1068,7 @@ Parameters:
 > callId: id của cuộc gọi nhận được trong event onInviteVideoCall
 
 # 52. azNotAnsweredVideoCall:
-Emit a call is not answered:
+Emit a call is not answered (MANNUALLY mode only):
 ```javascript
 azstack.azNotAnsweredVideoCall(toChatId, callId);
 ```
@@ -962,7 +1078,81 @@ Parameters:
 
 > callId: id của cuộc gọi nhận được trong event onInviteVideoCall
 
-# 53. toggleVideoState:
+# 53. azStartCallOut:
+Start a call to a user with option video or voice call:
+```javascript
+azstack.azStartCallOut(toPhoneNumber, callId, localVideoId, remoteVideoId);
+```
+Parameters:
+
+> toPhoneNumber: số điện thoại thực hiện cuộc gọi đến
+
+> callId: 1 số độc nhất không lặp lại
+
+> localVideoId: id của thẻ audio hiện thị tiếng nói của mình
+
+> remoteVideoId: id của thẻ audio hiện thị tiếng nói của mục tiêu cuộc gọi hướng đến
+
+# 54. azStopCallOut:
+Stop a call (MANNUALLY mode only):
+```javascript
+azstack.azStopCallOut(toPhoneNumber, callId);
+```
+Parameters:
+
+> toPhoneNumber: số điện thoại thực hiện cuộc gọi đến
+
+> callId: id của cuộc gọi
+
+# 55. azAcceptCallIn:
+accept a call (MANNUALLY mode only):
+```javascript
+azstack.azAcceptCallIn(destination, callId, localVideoId, remoteVideoId);
+```
+Parameters:
+
+> destination: số điện thoại của cuộc gọi đến
+
+> callId: callId của cuộc gọi gọi đến
+
+> localVideoId: id của thẻ audio hiện thị tiếng nói của mình
+
+> remoteVideoId: id của thẻ audio hiện thị tiếng nói của mục tiêu cuộc gọi hướng đến
+
+# 56. azRejectCallin:
+reject a call (MANNUALLY mode only):
+```javascript
+azstack.azRejectCallin(destination, callId);
+```
+Parameters:
+
+> destination: số điện thoại của cuộc gọi đến
+
+> callId: callId của cuộc gọi gọi đến
+
+# 57. azStopCallin:
+stop a call (MANNUALLY mode only):
+```javascript
+azstack.azStopCallin(destination, callId);
+```
+Parameters:
+
+> destination: số điện thoại của cuộc gọi đến
+
+> callId: callId của cuộc gọi gọi đến
+
+# 58. azNotAnsweredCallin:
+emit not answer a call (MANNUALLY mode only):
+```javascript
+azstack.azNotAnsweredCallin(destination, callId);
+```
+Parameters:
+
+> destination: số điện thoại của cuộc gọi đến
+
+> callId: callId của cuộc gọi gọi đến
+
+# 59. toggleVideoState (MANNUALLY mode only):
 toggle local video with optional param state
 ```javascript
 azstack.azWebRTC.toggleVideoState(state);
@@ -971,7 +1161,7 @@ Parameters:
 
 > state: true/false ứng với trạng thái video bật/tắt, nếu không có biến này, thay đổi trạng thái hiện tại của video tắt -> bật, bật -> tắt
 
-# 54. toggleAudioState:
+# 60. toggleAudioState (MANNUALLY mode only):
 toggle local audio with optional param state
 ```javascript
 azstack.azWebRTC.toggleAudioState(state);
@@ -980,7 +1170,7 @@ Parameters:
 
 > state: true/false ứng với trạng thái audio bật/tắt, nếu không có biến này, thay đổi trạng thái hiện tại của audio tắt -> bật, bật -> tắt
 
-# 55. updateUserInfoWithCallBack:
+# 61. updateUserInfoWithCallBack:
 cập nhật thông tin user theo userId có callback
 ```javascript
 azstack.updateUserInfoWithCallBack(userId, callback);
@@ -991,7 +1181,7 @@ Parameters:
 
 > callback: after request to server and get user data, function will be called
 
-# 56. updateUserInfoByUsernameWithCallBack:
+# 62. updateUserInfoByUsernameWithCallBack:
 cập nhật thông tin user theo azStackUserID có callback
 ```javascript
 azstack.updateUserInfoByUsernameWithCallBack(azStackUserID, callback);
@@ -1002,7 +1192,7 @@ Parameters:
 
 > callback: after request to server and get user data, function will be called
 
-# 57. azGetBroadcastInfo:
+# 63. azGetBroadcastInfo:
 Get broadcast information from server
 ```javascript
 azstack.azGetBroadcastInfo(broadcastId, callback);
@@ -1013,7 +1203,7 @@ Parameters:
 
 > callback: after receive broadcast information, this function will be triggered
 
-# 58. azLeaveGroupAndChangeAdmin:
+# 64. azLeaveGroupAndChangeAdmin:
 Rời nhóm và đổi admin của nhóm
 ```javascript
 azstack.azLeaveGroupAndChangeAdmin(leaveUser, newAdmin, group, msgId, callback);
@@ -1030,7 +1220,7 @@ Parameters:
 
 > callback: hàm thực hiện sau khi rời nhóm thành công
 
-# 59. azChargingGetBalance:
+# 65. azChargingGetBalance:
 Lấy thông tin balace của user
 ```javascript
 azstack.azChargingGetBalance(callback);
@@ -1039,7 +1229,7 @@ Parameters:
 
 > callback: hàm thực hiện sau có dữ liệu trả về
 
-# 60. getUserInfoByListUsernameAndRequestToServerWithCallBack:
+# 66. getUserInfoByListUsernameAndRequestToServerWithCallBack:
 Get information of user by list azStackUserID with callback
 ```javascript
 azstack.getUserInfoByListUsernameAndRequestToServerWithCallBack(listAzStackUserID, callback);
@@ -1050,7 +1240,7 @@ Parameters:
 
 > callback: after request to server and get user data, function will be called
 
-# 61. getUserInfoByListUsernameAndRequestToServer:
+# 67. getUserInfoByListUsernameAndRequestToServer:
 Get information of user by list azStackUserID
 ```javascript
 azstack.getUserInfoByListUsernameAndRequestToServer(listAzStackUserID);
@@ -1059,7 +1249,7 @@ Parameters:
 
 > listAzStackUserID: listAzStackUserID of user
 
-# 62. updateUserInfoByListUsernameWithCallBack:
+# 68. updateUserInfoByListUsernameWithCallBack:
 cập nhật thông tin user theo list azStackUserID có callback
 ```javascript
 azstack.updateUserInfoByListUsernameWithCallBack(listAzStackUserID, callback);
@@ -1070,7 +1260,7 @@ Parameters:
 
 > callback: after request to server and get user data, function will be called
 
-# 63. azSendMessageLocation:
+# 69. azSendMessageLocation:
 Send 1 message location chat 1 - 1
 ```javascript
 azstack.azSendMessageLocation(long, lat, addr, azStackUserID, msgId, callback);
@@ -1089,7 +1279,7 @@ Parameters:
 
 > callback: after request to server and get data, function will be called
 
-# 64. azSendMessageLocationGroup:
+# 70. azSendMessageLocationGroup:
 Send 1 message location chat group
 ```javascript
 azstack.azSendMessageLocationGroup(groupId, groupName, long, lat, addr, msgId, callback);
@@ -1109,3 +1299,63 @@ Parameters:
 > msgId: Id of message must be unique related to conversation and sender. Should be: currentMsgId++
 
 > callback: after request to server and get data, function will be called
+
+# 71. azMakeGroupWithTag:
+Create group
+```javascript
+azstack.azMakeGroupWithTag(members, name, msgId, type, tag, callback);
+```
+Parameters:
+
+> members: array userId of user is member in group
+
+> name: name of group
+
+> msgId: Id of message, must be unique related to conversation and sender. Should be: currentMsgId++
+
+> type: type = 0 (group private), type = 1 (group public / channel)
+
+> tag: tag of group
+
+> callback: after created group, this function will be triggered
+
+# 72. azGetListModifiedConversationsByPageAndTag:
+Get list conversation with page and tag, option callback:
+```javascript
+azstack.azGetListModifiedConversationsByPageAndTag(type, page, lastCreated, tag, callback);
+```
+Parameters:
+
+> type: type of conversations; 0: all, 1: one one, 2: group
+
+> page: Lấy danh sách theo page
+
+> lastCreated: only get list of conversations that have created after [lastCreated] (tính bằng miliseconds)
+
+> tag: tag of conversations
+
+> callback: after request to server and got conversations list, function will be called
+
+# 73. azPushCustomizeEvent:
+push customize event to selected users:
+```javascript
+azstack.azPushCustomizeEvent(eventType, eventData, users);
+```
+Parameters:
+
+> eventType: any integer number
+
+> eventData: any object/array of data
+
+> users: string of userId will be received push, separate by comma ','
+
+# 74. azJoinConferenceChat:
+Join conference chat with groupId
+```javascript
+azstack.azJoinConferenceChat(groupId, callback);
+```
+Parameters:
+
+> groupId: id og group
+
+> callback: after request to server and get result, function will be called

@@ -30,7 +30,7 @@ Please review example (authentication, chat):
 		azstack.logLevel = 'INFO';
 
 		//call options
-		azstack.azSetCallOptions('MANNUALLY', { enableAudio: true, enableVideo: true });// call mode: MANNUALLY, AUTO-IFRAME, AUTO-POPUP; second parameter: init enable audio and video (can toggle on/off later)
+		azstack.azSetCallOptions('AUTO-IFRAME', { enableAudio: true, enableVideo: true });// call mode: MANNUALLY, AUTO-IFRAME, AUTO-POPUP; second parameter: init enable audio and video (can toggle on/off later)
 
 		//SDK delegate --------------------------------------------- -->
 		azstack.onAuthenticationCompleted = function (code, authenticatedUser, msg) {

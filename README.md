@@ -1359,3 +1359,35 @@ Parameters:
 > groupId: id og group
 
 > callback: after request to server and get result, function will be called
+
+# note. integrate widget chat (chat, calls)
+You can easily have all of our features in your website with just some simple lines of code
+
+```javascript
+<!-- load file -->
+<script src="https://widgetchat.azstack.com/loader.js"></script>
+
+<!-- init -->
+<script>
+	azWidgetChat.init({
+		appId: 'your app id',
+		publicKey: 'your public key',
+		azStackUserId: 'your azStackUserId',
+		userCredentials: 'your user credentials',
+		fullname: 'user fullname',
+		namespace: 'your namespace',
+		members: [{
+			azStackUserId: 'test1',
+			fullname: 'test 1'
+		}, {
+			azStackUserId: 'test2',
+			fullname: 'test 2'
+		}, {
+			azStackUserId: 'test3',
+			fullname: 'test 3'
+		}]
+	}, function (success) {
+		//override azstack setting here
+	});
+</script>
+```

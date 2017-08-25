@@ -326,6 +326,14 @@ azstack.onCalloutBusy = function(packet){
 azstack.onCalloutNotAnswered = function(packet){
 }
 
+//Triggered when cuoc goi callout tài khoản hêt tiền (MANNUALLY mode only)
+azstack.onCalloutNotEnoughBalance = function(packet){
+}
+
+//Triggered when cuoc goi callout số điện thoại k đúng (MANNUALLY mode only)
+azstack.onCalloutInvalidNumber = function(packet){
+}
+
 //Triggered when cuoc goi callout lỗi (MANNUALLY mode only)
 azstack.onCalloutError = function(packet){
 }
